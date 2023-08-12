@@ -1,0 +1,22 @@
+<h1>Data Analysis</h1>
+
+<h2>Positive Posts</h2>
+<ul>
+    {% for post in positive_posts %}
+        <li>{{ post.social_media_post.content }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Negative Posts</h2>
+<ul>
+    {% for post in negative_posts %}
+        <li>{{ post.social_media_post.content }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Neutral Posts</h2>
+<ul>
+    {% for post in neutral_posts %}
+        <li>{{ post.social_media_post.content }}</li>
+    {% endfor %}
+</ul>

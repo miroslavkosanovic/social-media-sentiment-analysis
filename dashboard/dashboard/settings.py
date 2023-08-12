@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-$cdg1=i@kyt&ovx2wzwb55hoj1q-mkh4-lgnn540aqx_b##d(5"
+SECRET_KEY = "django-insecure-fub3nxa&pb=%v&o83+kd2()a50x4zkx9+m$gi#f23d@#9_rjd+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "sentiment_dashboard",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -122,3 +122,25 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+ASGI_APPLICATION = "sentiment_dashboard.routing.application"
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200',  # Change to your Elasticsearch host and port
+    },
+}
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Change to your Redis host and port
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'  # Change to your Redis host and port
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379/2',  # Change to your Redis host and port
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = 'home'  # Redirect to this URL after login
+LOGOUT_REDIRECT_URL = 'home'  # Redirect to this URL after logout

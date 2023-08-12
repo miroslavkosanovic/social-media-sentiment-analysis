@@ -1,0 +1,13 @@
+<h1>Recent Posts</h1>
+<ul>
+    {% for post in recent_posts %}
+        <li>{{ post.content }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Sentiment Statistics</h2>
+<ul>
+    <li>Positive Posts: {{ positive_posts }}</li>
+    <li>Negative Posts: {{ negative_posts }}</li>
+    <li>Neutral Posts: {{ neutral_posts }}</li>
+</ul>

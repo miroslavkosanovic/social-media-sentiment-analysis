@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <button id="getSentimentDataBtn">Get Sentiment Data</button>
+    <div id="response"></div>
+    
+    <script>
+        // Establish a WebSocket connection
+        const socket = new WebSocket('ws://your-domain/ws/sentiment_dashboard/');
+
+        // Function to send a WebSocket message
+        function sendMessage(type) {
+            const message = {
+                type: type,
+            };
+            socket.send(JSON.stringify(message));
+        }
+
+        // Listen for messages from the WebSocket
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            
+            if (data.type === 'sentiment_data') {
+                document.getElementById('response').innerText =
+                    `Positive: ${data.positive_posts}, Negative: ${data.negative_posts}, Neutral: ${data.neutral_posts}`;
+            } else if (data.type === 'error') {
+                document.getElementById('response').innerText = data.message;
+            }
+        };
+
+        // Send a message when the button is clicked
+        document.getElementById('getSentimentDataBtn').addEventListener('click', function() {
+            sendMessage('get_sentiment_data');
+        });
+    </script>
+</body>
+</html>
